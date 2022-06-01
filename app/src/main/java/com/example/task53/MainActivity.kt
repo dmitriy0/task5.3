@@ -45,10 +45,7 @@ class MainActivity : AppCompatActivity() {
                         append("Content-Type", "application/json")
                         append("x-api-key", "e7e933f7-09f6-43e3-a68a-b8e30c70e434")
                     }
-                    body = Json.encodeToString(Vote(imageId, "user_id", 1))
-                }
-                this@MainActivity.runOnUiThread{
-                    Toast.makeText(this@MainActivity,response.toString(), Toast.LENGTH_LONG).show()
+                    body = Json.encodeToString(Vote(imageId, "some_id", 1))
                 }
 
             }
@@ -75,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                     Uri.parse(catImage[0].url)
                 val image = findViewById<SimpleDraweeView>(R.id.image)
                 image.setImageURI(uri)
+                imageId = catImage[0].id
             }
 
         }

@@ -44,7 +44,6 @@
         app:layout_constraintBottom_toBottomOf="@id/like"
         app:layout_constraintStart_toEndOf="@id/dislike"
         app:layout_constraintEnd_toStartOf="@id/like"
-        android:layout_marginTop="16dp"
         android:text="Favourites"
          />
 

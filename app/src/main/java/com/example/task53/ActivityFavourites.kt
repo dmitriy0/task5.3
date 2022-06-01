@@ -30,7 +30,7 @@ class ActivityFavourites : AppCompatActivity() {
                 headers {
                     append("x-api-key", "e7e933f7-09f6-43e3-a68a-b8e30c70e434")
                 }
-                parameter("sub_id", "user_id")
+                parameter("sub_id", "some_id")
             }
 
             val votes = Json{ignoreUnknownKeys = true}.decodeFromString<List<Vote>>(responseVotes)
