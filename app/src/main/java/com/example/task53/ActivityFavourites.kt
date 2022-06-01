@@ -35,16 +35,19 @@ class ActivityFavourites : AppCompatActivity() {
 
             val votes = Json{ignoreUnknownKeys = true}.decodeFromString<List<Vote>>(responseVotes)
             for (i in votes){
-                val responseImage: String = client.get("https://api.thecatapi.com/v1/images/${i.image_id}") {
-                    headers {
-                        append("x-api-key", "e7e933f7-09f6-43e3-a68a-b8e30c70e434")
+                if (i.value == 1){
+                    val responseImage: String = client.get("https://api.thecatapi.com/v1/images/${i.image_id}") {
+                        headers {
+                            append("x-api-key", "e7e933f7-09f6-43e3-a68a-b8e30c70e434")
+                        }
+                    }
+                    val catImage = Json{ignoreUnknownKeys = true}.decodeFromString<Cat>(responseImage)
+                    data.add(catImage)
+                    this@ActivityFavourites.runOnUiThread{
+                        adapter.notifyItemInserted(data.size-1)
                     }
                 }
-                val catImage = Json{ignoreUnknownKeys = true}.decodeFromString<Cat>(responseImage)
-                data.add(catImage)
-                this@ActivityFavourites.runOnUiThread{
-                    adapter.notifyItemInserted(data.size-1)
-                }
+
 
             }
 

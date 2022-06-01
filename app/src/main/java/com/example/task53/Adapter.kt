@@ -22,7 +22,7 @@ class Adapter(private val data: ArrayList<Cat>): RecyclerView.Adapter<Adapter.Vi
         val name = view.findViewById<TextView>(R.id.name)!!
         val temperament = view.findViewById<TextView>(R.id.temperament)!!
         val image = view.findViewById<SimpleDraweeView>(R.id.image)!!
-
+        val dislike = view.findViewById<ImageView>(R.id.dislike)!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,7 +35,20 @@ class Adapter(private val data: ArrayList<Cat>): RecyclerView.Adapter<Adapter.Vi
         holder.temperament.text = "Temperament: ${data[position].breeds[0].temperament}"
         val uri: Uri = Uri.parse(data[position].url)
         holder.image.setImageURI(uri)
-
+        holder.dislike.setOnClickListener{
+            val client = HttpClient(OkHttp)
+            GlobalScope.launch(Dispatchers.IO) {
+                val response: String = client.post("https://api.thecatapi.com/v1/votes") {
+                    headers {
+                        append("Content-Type", "application/json")
+                        append("x-api-key", "e7e933f7-09f6-43e3-a68a-b8e30c70e434")
+                    }
+                    body = Json.encodeToString(Vote(data[position].id, "some_id", 0))
+                    data.removeAt(position)
+                }
+            }
+            this@Adapter.notifyItemRemoved(position)
+        }
     }
 
     override fun getItemCount(): Int = data.size

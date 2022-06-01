@@ -35,25 +35,32 @@ class MainActivity : AppCompatActivity() {
         val favourites = findViewById<Button>(R.id.favourites)
 
         val client = HttpClient(OkHttp)
+
         getRandomImage(client)
 
         like.setOnClickListener{
             GlobalScope.launch(Dispatchers.IO) {
                 val response: String = client.post("https://api.thecatapi.com/v1/votes") {
-
                     headers {
                         append("Content-Type", "application/json")
                         append("x-api-key", "e7e933f7-09f6-43e3-a68a-b8e30c70e434")
                     }
                     body = Json.encodeToString(Vote(imageId, "some_id", 1))
                 }
-
             }
-
             getRandomImage(client)
         }
 
         dislike.setOnClickListener{
+            GlobalScope.launch(Dispatchers.IO) {
+                val response: String = client.post("https://api.thecatapi.com/v1/votes") {
+                    headers {
+                        append("Content-Type", "application/json")
+                        append("x-api-key", "e7e933f7-09f6-43e3-a68a-b8e30c70e434")
+                    }
+                    body = Json.encodeToString(Vote(imageId, "some_id", 0))
+                }
+            }
             getRandomImage(client)
         }
 
