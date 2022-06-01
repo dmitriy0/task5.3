@@ -43,11 +43,12 @@ class Adapter(private val data: ArrayList<Cat>): RecyclerView.Adapter<Adapter.Vi
                         append("Content-Type", "application/json")
                         append("x-api-key", "e7e933f7-09f6-43e3-a68a-b8e30c70e434")
                     }
-                    body = Json.encodeToString(Vote(data[position].id, "some_id", 0))
+                    body = Json.encodeToString(Vote(data[position].id, "something_id", 0))
                     data.removeAt(position)
                 }
             }
             this@Adapter.notifyItemRemoved(position)
+            this@Adapter.notifyItemRangeChanged(position, data.size)
         }
     }
 
