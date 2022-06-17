@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                         append("Content-Type", "application/json")
                         append("x-api-key", "e7e933f7-09f6-43e3-a68a-b8e30c70e434")
                     }
-                    body = Json.encodeToString(Vote(imageId, "something_id", 1))
+                    body = Json.encodeToString(Vote(imageId, "user_id", 1))
                 }
             }
             getRandomImage(client)
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                         append("Content-Type", "application/json")
                         append("x-api-key", "e7e933f7-09f6-43e3-a68a-b8e30c70e434")
                     }
-                    body = Json.encodeToString(Vote(imageId, "something_id", 0))
+                    body = Json.encodeToString(Vote(imageId, "user_id", 0))
                 }
             }
             getRandomImage(client)
